@@ -8,7 +8,7 @@ import '../scss/Student.scss'
 // import { Delete, Edit } from '@mui/icons-material';
 import AddStudent from './AddStudent';
 import EditStudent from './EditStudent';
-import Sidebar from '../components/Sidebar';
+
 import { SearchOutlined } from '@ant-design/icons';
 
 

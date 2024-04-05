@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { ModalContext } from './Students';
-import { Box, MenuItem, TextField } from '@mui/material';
+
 import { GlobalContext } from './stateManagmentStudents';
 
 const EditStudent = ({ student }) => {

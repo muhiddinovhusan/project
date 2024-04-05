@@ -63,12 +63,16 @@
       "lastName": "Muhiddinov",
       "group": "React N40",
       "number": "222222222222222"
+    },
+    {
+      "id": "5dd1",
+      "firstName": "wwwwwwwww",
+      "lastName": "wwwwwwwww",
+      "group": "React N35",
+      "number": "22222"
     }
   ],
-  "user": {
-    "username": "",
-    "password": ""
-  },
+  "user": {},
   "teachers": [
     {
       "id": "1",
@@ -118,6 +122,13 @@
       "lastName": "Muhiddinov",
       "groups": "React N45,React N40,React N33",
       "level": ""
+    },
+    {
+      "id": "1d84",
+      "firstName": "Husan",
+      "lastName": "Muhiddinov",
+      "groups": "React N45,React N40,React N33",
+      "level": "Middle"
     }
   ]
 }

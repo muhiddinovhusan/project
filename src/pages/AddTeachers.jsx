@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 
-import { Box, MenuItem, TextField } from '@mui/material';
+
 import { ModalContext } from './Teachers';
 import { GlobalContext2 } from './teachStateManagment';
 
@@ -58,24 +58,22 @@ const AddTeachers = () => {
       <Modal.Body>
         <form onSubmit={handleSubmit} >
           <div className='mb-4'>
-            {/* <label htmlFor="firstName" className='form-label'>firstName</label>
+            <label htmlFor="firstName" className='form-label'>firstName</label>
             <input required type="text"
 
               className='form-control'
               id='firstName'
               value={teacher.firstName}
-              onChange={handleInputChange} /> */}
-              <TextField required id='firstName' label='firstName' size='small' fullWidth value={teacher.firstName}onChange={handleInputChange} />
+              onChange={handleInputChange} />
           </div>
           <div className='mb-3'>
-            {/* <label htmlFor="lastName" className='form-label'>lastName</label>
+            <label htmlFor="lastName" className='form-label'>lastName</label>
             <input required type="text" className='form-control' id='lastName'
               value={teacher.lastName}
-              onChange={handleInputChange} /> */}
-     <TextField  required id='lastName' label='firstName' size='small' fullWidth value={teacher.lastName}onChange={handleInputChange} />
+              onChange={handleInputChange} />
           </div>
           <div className='mb-3'>
-          {/* <label htmlFor='groups' className='form-label'>
+          <label htmlFor='groups' className='form-label'>
                 groups
               </label>
               <input
@@ -84,8 +82,7 @@ const AddTeachers = () => {
                 id='groups'
                 value={teacher.groups}
                 onChange={handleInputChange}
-              /> */}
-                   <TextField required id='groups' label='Groups' size='small' fullWidth value={teacher.groups}onChange={handleInputChange} />
+              />
 
           </div>
           <div className='mb-3 form-check'>
@@ -102,18 +99,7 @@ const AddTeachers = () => {
                 <option value='Middle'>Middle</option>
                 <option value='Senior'>Senior</option>
               </select>
-                   {/* <Box width={250}>
-              <TextField required  label='Select'  select fullWidth   
-                onChange={handleInputChange}  id="level" name='level'  value={teacher.level}
-              >
-
-             
-              <MenuItem value=''>Select</MenuItem>
-              <MenuItem value='Junior'>Junior</MenuItem>
-              <MenuItem value='Middle'>Middle</MenuItem>
-              <MenuItem value='Senior'>Senior</MenuItem>
-              </TextField>
-            </Box> */}
+               
           </div>
           <Button type="submit" variant="primary">
             Add
