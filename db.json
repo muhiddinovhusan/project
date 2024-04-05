@@ -1,0 +1,123 @@
+{
+  "studentss": [
+    {
+      "id": "7515",
+      "firstName": "sss",
+      "lastName": "m",
+      "group": "React N40",
+      "number": "333333"
+    },
+    {
+      "id": "cf66",
+      "firstName": "sa",
+      "lastName": "hhhh",
+      "group": "React N35",
+      "number": "5555555",
+      "gender": "React N35"
+    },
+    {
+      "id": "7a86",
+      "firstName": "Xusan",
+      "lastName": "Muhiddinov",
+      "group": "React N45",
+      "number": "998996730502"
+    },
+    {
+      "id": "689e",
+      "firstName": "Husan",
+      "lastName": "Muhiddinov",
+      "group": "React N35",
+      "number": "5555555"
+    },
+    {
+      "id": "c370",
+      "firstName": "ss",
+      "lastName": "ss",
+      "group": "React N40",
+      "number": "3333"
+    },
+    {
+      "id": "3eea",
+      "firstName": "ss",
+      "lastName": "ss",
+      "group": "React N40",
+      "number": "3333"
+    },
+    {
+      "id": "c2e8",
+      "firstName": "ss",
+      "lastName": "ss",
+      "group": "React N40",
+      "number": "3333"
+    },
+    {
+      "id": "ce1d",
+      "firstName": "Husan",
+      "lastName": "Muhiddinov",
+      "group": "React N35",
+      "number": "3333"
+    },
+    {
+      "id": "cd57",
+      "firstName": "Husan",
+      "lastName": "Muhiddinov",
+      "group": "React N40",
+      "number": "222222222222222"
+    }
+  ],
+  "user": {
+    "username": "1111",
+    "password": "1111"
+  },
+  "teachers": [
+    {
+      "id": "1",
+      "firstName": "Sultonqul",
+      "lastName": "Nortoyloqov",
+      "groups": "React N45,React N40,React N33",
+      "level": "Senior"
+    },
+    {
+      "id": "2",
+      "firstName": "Ixtiyor",
+      "lastName": "Vohobjonov",
+      "groups": "React N45,React N40,React N33",
+      "level": "Middle"
+    },
+    {
+      "id": "8fe1",
+      "firstName": "Husan",
+      "lastName": "Muhiddinov",
+      "groups": "React N45,React N40,React N33",
+      "level": "Middle"
+    },
+    {
+      "id": "0b0c",
+      "firstName": "Husan",
+      "lastName": "Muhiddinov",
+      "groups": "React N45,React N40,React N33",
+      "level": "Junior"
+    },
+    {
+      "id": "55b7",
+      "firstName": "ss",
+      "lastName": "sss",
+      "groups": "React N45,React N40,React N33",
+      "level": "Middle"
+    },
+    {
+      "id": "d105",
+      "firstName": "ssssss",
+      "lastName": "sssssss",
+      "groups": "ssssssssssss",
+      "level": "Middle"
+    },
+    {
+      "id": "3061",
+      "firstName": "Husan",
+      "lastName": "Muhiddinov",
+      "groups": "React N45,React N40,React N33",
+      "level": ""
+    }
+  ]
+}
