@@ -57,10 +57,7 @@
       "group": "React N35"
     }
   ],
-  "user": {
-    "username": "aaaa",
-    "password": "2222"
-  },
+  "user": {},
   "teachers": [
     {
       "id": "1",
