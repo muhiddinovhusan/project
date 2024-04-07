@@ -13,7 +13,7 @@ import { SearchOutlined } from '@ant-design/icons';
 
 
 const initialState = {
-  addModal: false,
+  addModal: false,                                                                                    
   editModal: false,
 }
 export const ModalContext = createContext();

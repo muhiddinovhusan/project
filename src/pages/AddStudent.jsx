@@ -1,119 +1,64 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Button, Modal } from 'react-bootstrap'
+import React, { useContext } from 'react';
+import { Button, Modal } from 'react-bootstrap';
 import { ModalContext } from './Students';
-
 import { GlobalContext } from './stateManagmentStudents';
+import { useForm } from 'react-hook-form';
 
 const AddStudent = () => {
   const { addModal, closeModal } = useContext(ModalContext);
-  const { addStudent } = useContext(GlobalContext)
-  const [student, setStudent] = useState({
-    firstName: "",
-    lastName: "",
-    group: "",
-    number: "",
-  });
+  const { addStudent } = useContext(GlobalContext);
 
-  const handleInputChange = (event) => {
-    const { id, value } = event.target;
-    setStudent((prevStudent) => ({
-      ...prevStudent,
-      [id]: value,
-    }));
+  const { register, handleSubmit, formState: { errors }, reset, trigger } = useForm(); 
+
+  const onSubmit = (data) => {
+    addStudent(data);
+    closeModal();
+    reset();
   };
 
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    addStudent(student);
-    console.log(student)
+  const handleCloseModal = () => {
     closeModal();
-    setStudent({
-      firstName: '',
-      lastName: '',
-      group: '',
-      number: ''
-    });
+    reset();
   };
-
-
-  function closeModalcancel() {
-    closeModal();
-    setStudent({
-      firstName: '',
-      lastName: '',
-      group: '',
-      number: ''
-    });
-  }
 
   return (
-
-
-    <div>   <Modal show={addModal} onHide={closeModal}>
-    <Modal.Header closeButton>
-      <Modal.Title> Add student</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-      <form onSubmit={handleSubmit} >
-        <div className='mb-4'>
-          <label htmlFor="firstName" className='form-label'>firstName</label>
-          <input required type="text"
-
-            className='form-control'
-            id='firstName'
-            value={student.firstName}
-            onChange={handleInputChange} />
-        </div>
-        <div className='mb-3'>
-          <label htmlFor="lastName" className='form-label'>lastName</label>
-          <input required type="text" className='form-control' id='lastName'
-            value={student.lastName}
-            onChange={handleInputChange} />
-        </div>
-        <div className='mb-3'>
-        <label htmlFor='number' className='form-label'>
-              number
-            </label>
-            <input
-              type='text'
-              className='form-control'
-              id='number'
-              value={student.number}
-              onChange={handleInputChange}
-            />
-
-        </div>
-        <div className='mb-3 form-check'>
-          <label htmlFor="group" className='form-label'>group</label>
-          <select required
-              name='group'
-              id='group'
-              className='form-select w-auto'
-              value={student.group}
-              onChange={handleInputChange}
-            >
+    <Modal show={addModal} onHide={handleCloseModal} dialogClassName="custom-modal">
+      <Modal.Header closeButton>
+        <Modal.Title>Add student</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className='mb-3'>
+            <label htmlFor="firstName" className='form-label'>First Name</label>
+            <input type="text" className='form-control' id='firstName' {...register('firstName', { required: true })} onBlur={() => trigger('firstName')} />
+            {errors.firstName && <span className="text-danger">Firstname is required</span>}
+          </div>
+          <div className='mb-3'>
+            <label htmlFor="lastName" className='form-label'>Last Name</label>
+            <input type="text" className='form-control' id='lastName' {...register('lastName', { required: true })} onBlur={() => trigger('lastName')} />
+            {errors.lastName && <span className="text-danger">Lastname is required</span>}
+          </div>
+          <div className='mb-3'>
+            <label htmlFor='number' className='form-label'>Number</label>
+            <input type='text' className='form-control' id='number' {...register('number', { required: true })} onBlur={() => trigger('number')} />
+            {errors.number && <span className="text-danger">Number is required</span>}
+          </div>
+          <div className='mb-3'>
+            <label htmlFor="group" className='form-label'>Group</label>
+            <select className='form-select' id='group' {...register('group', { required: true })} onBlur={() => trigger('group')}>
               <option value=''>Select</option>
               <option value='React N35'>React N35</option>
-              <option value='React N40 '>React N40</option>
+              <option value='React N40'>React N40</option>
               <option value='React N45'>React N45</option>
             </select>
-             
-        </div>
-        <Button type="submit" variant="primary">
-          Add
+            {errors.group && <span className="text-danger">Group is required</span>}
+          </div>
+          <Button type="submit" variant="primary">Add</Button>
+          <Button variant="secondary" onClick={handleCloseModal}>Cancel</Button>
+        </form>
+      </Modal.Body>
+    </Modal>
+  );
+};
 
-        </Button>
-        <Button variant="secondary" onClick={closeModalcancel}>
-          Cancel
-        </Button>
-      </form>
-    </Modal.Body>
-
-
-
-  </Modal></div>
-  )
-}
-
-export default AddStudent
+export default AddStudent;

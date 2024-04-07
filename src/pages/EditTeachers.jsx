@@ -1,36 +1,34 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { ModalContext } from './Teachers';
 import { GlobalContext2 } from './teachStateManagment';
-
-
+import { useForm } from 'react-hook-form';
 
 const EditTeachers = ({ student }) => {
   const { editModal, closeEditModal } = useContext(ModalContext);
   const { updateTeacher } = useContext(GlobalContext2);
 
-  const [editedTeacher, setEditedTeacher] = useState(student);
+  const { register, handleSubmit, formState: { errors, isValid }, setValue, trigger } = useForm({
+    mode: 'onChange'
+  });
 
+  useEffect(() => {
+    setValue('firstName', student.firstName);
+    setValue('lastName', student.lastName);
+    setValue('groups', student.groups);
+    setValue('level', student.level);
+  }, [student, setValue]);
 
-
-  const handleInputChange = (e) => {
-    setEditedTeacher({
-      ...editedTeacher,
-      [e.target.id]: e.target.value
-    })
-  }
-
-
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    updateTeacher(editedTeacher)
+  const onSubmit = (data) => {
+    updateTeacher(data);
     closeEditModal();
-    setEditedTeacher({
-      firstName: '',
-      lastName: '',
-      groups : [],
-    level:''
-    });
+  };
+
+  const handleFormSubmit = async () => {
+    const isValid = await trigger();
+    if (isValid) {
+      handleSubmit(onSubmit)();
+    }
   };
 
   return (
@@ -40,89 +38,68 @@ const EditTeachers = ({ student }) => {
           <Modal.Title>Edit Student</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={handleUpdate}>
+          <form onSubmit={handleFormSubmit}>
             <div className='mb-3'>
               <label htmlFor='firstName' className='form-label'>
-                firstName
+                First Name
               </label>
               <input
                 type='text'
                 className='form-control'
                 id='firstName'
-                value={editedTeacher.firstName}
-                onChange={handleInputChange}
-
+                {...register('firstName', { required: true })}
               />
+              {errors.firstName && <span style={{
+                color: 'red'
+              }}>Teacher's firstName is required</span>}
             </div>
             <div className='mb-3'>
               <label htmlFor='lastName' className='form-label'>
-                lastName
+                Last Name
               </label>
               <input
                 type='text'
                 className='form-control'
                 id='lastName'
-                value={editedTeacher.lastName}
-                onChange={handleInputChange}
+                {...register('lastName', { required: true })}
               />
+              {errors.lastName && <span style={{
+                color: 'red'
+              }}>Teacher's lastName is required</span>}
             </div>
             <div className='mb-3'>
-              {/* <select
-                name='group'
-                id='group'
-                className='form-select w-auto'
-                value={editedTeacher.groups}
-                onChange={handleInputChange}
-              >
-                <option value='All'>Select</option>
-                <option value='React N35'>React N35</option>
-                <option value='React N40'>React N40</option>
-                <option value='React N45'>React N45</option>
-              </select> */}
-                     <label htmlFor='groups' className='form-label'>
-                groups
+              <label htmlFor='groups' className='form-label'>
+                Groups
               </label>
               <input
                 type='text'
                 className='form-control'
                 id='groups'
-                value={editedTeacher.groups}
-                onChange={handleInputChange}
+                {...register('groups', { required: true })}
               />
+              {errors.groups && <span style={{
+                color: 'red'
+              }}>Teacher's group/groups is/are required</span>}
             </div>
-            <div className='mb-3 form-check'>
-              {/* <label htmlFor='level' className='form-label'>
-                groups */}
-              {/* <input
-                type='number'
-                className='form-control'
-                id='number'
-                value={editedTeacher.level}
-                onChange={handleInputChange}
-              /> */}
-                  <select
+            <div className='mb-3'>
+              <label htmlFor='level' className='form-label'>
+                Level
+              </label>
+              <select
                 name='level'
                 id='level'
-                className='form-select w-auto'
-               
+                className='form-select'
+                {...register('level', { required: true })}
               >
                 <option value='Junior'>Junior</option>
                 <option value='Middle'>Middle</option>
                 <option value='Senior'>Senior</option>
               </select>
-              {/* <Box  width={250}>
-              <TextField required  label='Select'  select fullWidth   value={editedTeacher.level}
-                onChange={handleInputChange}  id="level" name='level'
-              >
-
-            
-              <MenuItem value='Junior'>Junior</MenuItem>
-              <MenuItem value='Middle'>Middle</MenuItem>
-              <MenuItem value='Senior'>Senior</MenuItem>
-              </TextField>
-            </Box> */}
+              {errors.level && <span style={{
+                color: 'red'
+              }}>Teacher's level is required</span>}
             </div>
-            <Button type='submit' variant='primary'>
+            <Button type='submit' variant='primary' disabled={!isValid}>
               Edit
             </Button>
             <Button variant='secondary' onClick={closeEditModal}>

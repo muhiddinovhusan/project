@@ -1,33 +1,11 @@
 {
   "studentss": [
     {
-      "id": "7515",
-      "firstName": "sss",
-      "lastName": "m",
-      "group": "React N40",
-      "number": "333333"
-    },
-    {
-      "id": "cf66",
-      "firstName": "sa",
-      "lastName": "hhhh",
-      "group": "React N35",
-      "number": "5555555",
-      "gender": "React N35"
-    },
-    {
       "id": "7a86",
       "firstName": "Xusan",
       "lastName": "Muhiddinov",
       "group": "React N45",
       "number": "998996730502"
-    },
-    {
-      "id": "689e",
-      "firstName": "Husan",
-      "lastName": "Muhiddinov",
-      "group": "React N35",
-      "number": "5555555"
     },
     {
       "id": "c370",
@@ -70,9 +48,19 @@
       "lastName": "wwwwwwwww",
       "group": "React N35",
       "number": "22222"
+    },
+    {
+      "id": "bf39",
+      "firstName": "Husan",
+      "lastName": "Muhiddinov",
+      "number": "12345678",
+      "group": "React N35"
     }
   ],
-  "user": {},
+  "user": {
+    "username": "aaaa",
+    "password": "2222"
+  },
   "teachers": [
     {
       "id": "1",
@@ -98,7 +86,7 @@
     {
       "id": "0b0c",
       "firstName": "Husan",
-      "lastName": "Muhiddinov",
+      "lastName": "Muhiddinovvv",
       "groups": "React N45,React N40,React N33",
       "level": "Junior"
     },
@@ -115,13 +103,6 @@
       "lastName": "sssssss",
       "groups": "ssssssssssss",
       "level": "Middle"
-    },
-    {
-      "id": "3061",
-      "firstName": "Husan",
-      "lastName": "Muhiddinov",
-      "groups": "React N45,React N40,React N33",
-      "level": ""
     },
     {
       "id": "1d84",
