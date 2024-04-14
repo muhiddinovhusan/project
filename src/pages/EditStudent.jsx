@@ -20,27 +20,19 @@ const EditStudent = ({ student, isOpen, onClose }) => {
     }
   }, [isOpen, student, setValue]);
 
-  // const onSubmit = async(data) => {
-  //   dispatch(updateStudent(data));
-  //   onClose();
-  // };
-
   const onSubmit = async (data) => {
     data.id = student.id;
     dispatch(updateStudent(data));
-    onClose();
+    onClose(); 
   };
 
   const handleFormSubmit = async () => {
-    const isValid = await trigger();
+    const isValid = await trigger(); 
     if (isValid) {
-      handleSubmit(onSubmit)();
+      handleSubmit(onSubmit)(); 
     }
   };
   
-
-
-
   const handleCloseModal = () => {
     onClose();
   };
