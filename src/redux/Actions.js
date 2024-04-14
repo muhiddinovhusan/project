@@ -88,7 +88,7 @@ export const updateStudent = (student) => {
 };
 
 export const addStudent = (student) => {
-  return async (dispatch) => { // dispatch argumentini qabul qiling
+  return async (dispatch) => {
     try {
       const res = await axios.post("http://localhost:3000/studentss", student);
       dispatch({ type: ADD_STUDENT, payload: res.data });

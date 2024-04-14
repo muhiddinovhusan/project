@@ -8,13 +8,6 @@
       "number": "998996730502"
     },
     {
-      "id": "ce1d",
-      "firstName": "Husan",
-      "lastName": "Muhiddinov",
-      "group": "React N35",
-      "number": "3333"
-    },
-    {
       "id": "cd57",
       "firstName": "Husan",
       "lastName": "Muhiddinov",
@@ -22,18 +15,18 @@
       "number": "222222222222222"
     },
     {
-      "id": "bf39",
       "firstName": "Husan",
-      "lastName": "Muhiddinov",
-      "number": "12345678",
-      "group": "React N35"
+      "lastName": "Muhiddinovs",
+      "group": "React N35",
+      "number": "123456780",
+      "id": "bf39"
     },
     {
-      "id": "f2b7",
       "firstName": "Husan",
       "lastName": "ss",
+      "group": "React N35",
       "number": "3333",
-      "group": "React N35"
+      "id": "f2b7"
     },
     {
       "id": "9700",
@@ -69,18 +62,11 @@
       "lastName": "wwww",
       "number": "4444",
       "group": "React N45"
-    },
-    {
-      "id": "68d0",
-      "firstName": "ss",
-      "lastName": "уу",
-      "number": "5555",
-      "group": "React N40"
     }
   ],
   "user": {
-    "username": "muhiddinov_husan",
-    "password": "уу"
+    "username": "",
+    "password": ""
   },
   "teachers": [
     {

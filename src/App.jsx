@@ -20,27 +20,23 @@ const App = () => {
   const [collapsed, setCollapsed] = useState(false);
   
   return (
-<Provider store={store}>
-
-
     <BrowserRouter>
       <AuthProvider>
-        
-        <Layout>
-          <Sider theme='light' trigger={null} collapsible collapsed={collapsed} className='sider'>
-            <Sidebar />
-            <Button type='text' icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
-              className='triger-btn'
-              />
-          </Sider>
+        <Provider store={store}>
           <Layout>
-            <Header className='header'>
-              <CustomHeader />
-            </Header>
-            <Content className='content'>
-              <Flex gap='large'>
-               
+            <Sider theme='light' trigger={null} collapsible collapsed={collapsed} className='sider'>
+              <Sidebar />
+              <Button type='text' icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => setCollapsed(!collapsed)}
+                className='triger-btn'
+              />
+            </Sider>
+            <Layout>
+              <Header className='header'>
+                <CustomHeader />
+              </Header>
+              <Content className='content'>
+                <Flex gap='large'>
                   <Routes>
                     <Route path="/" element={
                       <RequireAuth>
@@ -54,16 +50,13 @@ const App = () => {
                       </RequireAuth>
                     } />
                   </Routes>
-            
-            
-              </Flex>
-            </Content>
+                </Flex>
+              </Content>
+            </Layout>
           </Layout>
-        </Layout>
-                   
+        </Provider>
       </AuthProvider>
     </BrowserRouter>
-    </Provider>
   );
 }
 
