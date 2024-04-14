@@ -1,28 +1,31 @@
 import React, { useContext } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { ModalContext } from './Students';
-import { GlobalContext } from './stateManagmentStudents';
 import { useForm } from 'react-hook-form';
+import { addStudent } from '../redux/Actions';
+import { useDispatch } from 'react-redux'; 
 
-const AddStudent = () => {
-  const { addModal, closeModal } = useContext(ModalContext);
-  const { addStudent } = useContext(GlobalContext);
+const AddStudent = ({ isOpen, onClose }) => { 
+  const dispatch = useDispatch(); 
 
   const { register, handleSubmit, formState: { errors }, reset, trigger } = useForm(); 
 
-  const onSubmit = (data) => {
-    addStudent(data);
-    closeModal();
-    reset();
+  const onSubmit = async (data) => { 
+    try {
+     dispatch(addStudent(data)); 
+      onClose();
+      reset(); 
+    } catch (error) {
+      console.error("Error adding student:", error); // Hata durumunda konsola hata yazdırıldı
+    }
   };
 
   const handleCloseModal = () => {
-    closeModal();
-    reset();
+    onClose(); // Modal kapatıldı
+    reset(); // Form resetlendi
   };
 
   return (
-    <Modal show={addModal} onHide={handleCloseModal} dialogClassName="custom-modal">
+    <Modal show={isOpen} onHide={handleCloseModal} dialogClassName="custom-modal">
       <Modal.Header closeButton>
         <Modal.Title>Add student</Modal.Title>
       </Modal.Header>

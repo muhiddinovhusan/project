@@ -1,49 +1,46 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { ModalContext } from './Students';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { updateStudent } from '../redux/Actions';
 
-import { GlobalContext } from './stateManagmentStudents';
-
-const EditStudent = ({ student }) => {
-  const { editModal, closeEditModal } = useContext(ModalContext);
-  const { updateStudent } = useContext(GlobalContext);
+const EditStudent = ({ student, isOpen, onClose }) => {
+  const dispatch = useDispatch();
 
   const { register, handleSubmit, formState: { errors, isValid }, setValue, trigger } = useForm({
     mode: 'onChange'
   });
 
   useEffect(() => {
-    setValue('firstName', student.firstName);
-    setValue('lastName', student.lastName);
-    setValue('group', student.group);
-    setValue('number', student.number);
-  }, [student, setValue]);
-
-  const onSubmit = (data) => {
-    updateStudent(data);
-    closeEditModal();
-  };
-
-  const handleFormSubmit = async () => {
-    const isValid = await trigger();
-    if (isValid) {
-      handleSubmit(onSubmit)();
+    if (isOpen && student) {
+      setValue('firstName', student.firstName);
+      setValue('lastName', student.lastName);
+      setValue('group', student.group);
+      setValue('number', student.number);
     }
-  };
+  }, [isOpen, student, setValue]);
 
+  const onSubmit = async(data) => {
+    dispatch(updateStudent(data));
+    onClose();
+  };
+  
+
+  const handleCloseModal = () => {
+    onClose();
+  };
 
   return (
     <div>
-      <Modal show={editModal} onHide={closeEditModal}>
+      <Modal show={isOpen} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Student</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={handleFormSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className='mb-3'>
               <label htmlFor='firstName' className='form-label'>
-                firstName
+                First Name
               </label>
               <input
                 type='text'
@@ -51,14 +48,11 @@ const EditStudent = ({ student }) => {
                 id='firstName'
                 {...register('firstName', { required: true })}
               />
-              {errors.firstName && <span style={{
-                color: 'red'
-              }}>Student's firstName is required</span>}
-
+              {errors.firstName && <span style={{ color: 'red' }}>First Name is required</span>}
             </div>
             <div className='mb-3'>
               <label htmlFor='lastName' className='form-label'>
-                lastName
+                Last Name
               </label>
               <input
                 type='text'
@@ -66,9 +60,7 @@ const EditStudent = ({ student }) => {
                 id='lastName'
                 {...register('lastName', { required: true })}
               />
-              {errors.lastName && <span style={{
-                color: 'red'
-              }}>Student's lastName is required</span>}
+              {errors.lastName && <span style={{ color: 'red' }}>Last Name is required</span>}
             </div>
             <div className='mb-3'>
               <select
@@ -77,18 +69,16 @@ const EditStudent = ({ student }) => {
                 className='form-select w-auto'
                 {...register('group', { required: true })}
               >
-
+                <option value=''>Select Group</option>
                 <option value='React N35'>React N35</option>
                 <option value='React N40'>React N40</option>
                 <option value='React N45'>React N45</option>
               </select>
-              {errors.group && <span style={{
-                color: 'red'
-              }}>Student's group is required</span>}
+              {errors.group && <span style={{ color: 'red' }}>Group is required</span>}
             </div>
             <div className='mb-3 form-check'>
               <label htmlFor='number' className='form-label'>
-                number
+                Number
               </label>
               <input
                 type='number'
@@ -96,16 +86,12 @@ const EditStudent = ({ student }) => {
                 id='number'
                 {...register('number', { required: true })}
               />
-              {errors.number && <span style={{
-                color: 'red'
-              }}>Students' number is required</span>}
-
-
+              {errors.number && <span style={{ color: 'red' }}>Number is required</span>}
             </div>
             <Button type='submit' variant='primary' disabled={!isValid}>
               Edit
             </Button>
-            <Button variant='secondary' onClick={closeEditModal}>
+            <Button variant='secondary' onClick={handleCloseModal}>
               Cancel
             </Button>
           </form>

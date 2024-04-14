@@ -1,164 +1,41 @@
+// Students.js
 
-import { createContext, useContext, useEffect, useReducer, useState, } from 'react';
-import { ButtonGroup, PageItem } from 'react-bootstrap';
-import { GlobalContext, GlobalProvider } from './stateManagmentStudents';
-import { Input,Button, Table } from 'antd';
-import '../scss/Student.scss'
-// import { Box, Button, MenuItem, TextField } from '@mui/material';
-// import { Delete, Edit } from '@mui/icons-material';
+import React, { useEffect, useState } from 'react';
+import { Button, Input, Table } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import AddStudent from './AddStudent';
 import EditStudent from './EditStudent';
-
 import { SearchOutlined } from '@ant-design/icons';
-
-
-const initialState = {
-  addModal: false,                                                                                    
-  editModal: false,
-}
-export const ModalContext = createContext();
-
-const reducer = (state, action) => {
-  switch (action.type) {
-
-
-    case "OPEN_MODAL":
-      return {
-        ...state,
-        addModal: true,
-      };
-    case "CLOSE_MODAL":
-      return {
-        ...state,
-        addModal: false,
-      };
-    case "EDIT_MODAL":
-      return {
-        ...state,
-        editModal: true,
-
-      }
-    case "CLOSE_EDIT_MODAL":
-      return {
-        ...state,
-        editModal: false,
-      };
-
-    default:
-      return state;
-  }
-};
+import { closeModal, fetchStudents, openModal, deleteStudent, openEditModal, closeEditModal } from '../redux/Actions';
 
 const Students = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const {
-    students,
-    getStudents,
-    deleteStudent, } = useContext(GlobalContext);
+  const dispatch = useDispatch();
+  const { loading, students, error, editModal, addModal } = useSelector((state) => state);
 
   useEffect(() => {
-    getStudents();
-  }, []);
+    dispatch(fetchStudents());
+  }, [dispatch]);
 
-  // const [filtered, setFiltered] = useState(students);
-  // const [filter, setFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(4)
-
-
-
-  /////pagination//////
-  // const lastPostIndex = currentPage * postsPerPage;
-  // const firstPostIndex = lastPostIndex - postsPerPage;
-  // const currenPosts = filtered.slice(firstPostIndex, lastPostIndex);
-
-  // let pages = [];
-  // const totalPosts = students.length
-  // for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-  //   pages.push(i)
-  // }
-  // const tot = Math.ceil(totalPosts / postsPerPage)
-
-  // const hasPrev = Boolean(currentPage > 1)
-  // const hasPrev2 = Boolean(currentPage < tot)
-
-  // const handleChange = (type) => {
-  //   if (type === "prev") {
-  //     setCurrentPage(currentPage - 1)
-  //   } else {
-  //     setCurrentPage(currentPage + 1)
-  //   }
-  // }
-
-
-
-  ////search
-
-  // const handleProductSearch = (e) => {
-  //   const text = e.target.value.trim().toLowerCase();
-  //   setFiltered(
-  //     students.filter(
-  //       (product) =>
-  //         product.lastName.toLowerCase().includes(text) ||
-  //         product.firstName.toLowerCase().includes(text)
-  //     )
-  //   );
-  // };
-
-
-
-
-  ////////filter//////
-  // const handleFilter = (e) => {
-  //   setFilter(e.target.value);
-  //   const filter = e.target.value;
-  //   if (filter === "All") {
-  //     setFiltered(students);
-  //   } else {
-  //     setFiltered(
-  //       students.filter((product) => product.group === filter)
-  //     );
-  //   }
-  // };
-
-
-  // useEffect(() => {
-  //   setFiltered(students);
-  // }, [students]);
-
-
-
-
-  const openModal = () => {
-    dispatch({ type: "OPEN_MODAL" });
-  };
-
-  const closeModal = () => {
-    dispatch({ type: "CLOSE_MODAL" });
-  };
-  const openEditModal = () => {
-    dispatch({ type: "EDIT_MODAL" });
-
-  };
-
-  const closeEditModal = () => {
-    dispatch({ type: "CLOSE_EDIT_MODAL" });
-
-  }
-
-
-
+  const [postsPerPage, setPostsPerPage] = useState(4);
   const [selectedStudent, setSelectedStudent] = useState(null);
-
-  // ...
 
   const handleEdit = (student) => {
     setSelectedStudent(student);
-    console.log(setSelectedStudent)
-    openEditModal();
+    dispatch(openEditModal());
+    console.log(student)
+  };
 
-  }
+  const handleOpenModal = () => {
+    dispatch(openModal());
+  };
 
+  const handleDelete = (id) => {
+    const confirm = window.confirm('Are you sure you want to delete this student?');
+    if (confirm) {
+      dispatch(deleteStudent(id));
+    }
+  };
 
   const columns = [
     {
@@ -255,7 +132,7 @@ const Students = () => {
             <Button  style={{
               background:'red',
               color: 'white'
-            }} onClick={() => deleteStudent(record.id)}>Delete</Button>
+            }} onClick={() => handleDelete(record.id)}>Delete</Button>
           </div>
         )
       }
@@ -263,44 +140,33 @@ const Students = () => {
     },
   ]
 
-
   return (
+    <>
+      {loading && <h1>Loading</h1>}
+      {error && <h1>{error.message}</h1>}
+      {students && (
+        <div className='Student'>
+          <div className='Student-head'>
+            <button className='btn btn-outline-success w-auto' onClick={handleOpenModal}>Add</button>
+          </div>
 
-    <div className='Student'>
-  <div className='Student-head'>
-  <button className='btn btn-outline-success w-auto' onClick={openModal}>Add</button>
-  </div>
-      <Table className='Table' size='large'  dataSource={students} columns={columns} pagination={{
-        current :currentPage,
-        pageSize:postsPerPage,
-        onChange:(page , pageSize)=>{
-          setCurrentPage(page);
-          setPostsPerPage(pageSize);
-        }
-      }}
-      >
-
-
-      </Table>
-     <div>
-     <ModalContext.Provider value={{
-        addModal: state.addModal, openModal, closeModal,
-        editModal: state.editModal, closeEditModal, openEditModal
-        
-      }}>
-
-        <AddStudent />
-        {state.editModal && <EditStudent student={selectedStudent} />}
-
-      </ModalContext.Provider>
-
-     </div>
-     
+          <Table style={{
+            width: '100%'
+          }} className='Table' size='large' dataSource={students} columns={columns} pagination={{
+            current: currentPage,
+            pageSize: postsPerPage,
+            onChange: (page, pageSize) => {
+              setCurrentPage(page);
+              setPostsPerPage(pageSize);
+            }
+          }} />
+          <>
+          <AddStudent isOpen={addModal} onClose={() => dispatch(closeModal())} selectedStudent={selectedStudent} />
+          <EditStudent isOpen={editModal} onClose={() => dispatch(closeEditModal())} student={selectedStudent} />
+          </>
         </div>
-
-  
-     
-   
+      )}
+    </>
   );
 };
 

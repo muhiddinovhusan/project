@@ -78,7 +78,10 @@
       "group": "React N40"
     }
   ],
-  "user": {},
+  "user": {
+    "username": "muhiddinov_husan",
+    "password": "уу"
+  },
   "teachers": [
     {
       "id": "1",

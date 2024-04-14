@@ -7,13 +7,12 @@ import CustomHeader from './components/Header';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AuthProvider from './components/AuthProvider';
-import { GlobalProvider } from './pages/stateManagmentStudents';
-import { GlobalProvider2 } from './pages/teachStateManagment';
 import RequireAuth from './components/RequireAuth';
 import Students from './pages/Students';
 import Profile from './components/Profile';
-import Teachers from './pages/Teachers';
 import Login from './components/Login';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 const { Sider, Header, Content } = Layout;
 
@@ -21,6 +20,8 @@ const App = () => {
   const [collapsed, setCollapsed] = useState(false);
   
   return (
+<Provider store={store}>
+
 
     <BrowserRouter>
       <AuthProvider>
@@ -39,7 +40,7 @@ const App = () => {
             </Header>
             <Content className='content'>
               <Flex gap='large'>
-                <GlobalProvider>
+               
                   <Routes>
                     <Route path="/" element={
                       <RequireAuth>
@@ -53,16 +54,8 @@ const App = () => {
                       </RequireAuth>
                     } />
                   </Routes>
-                </GlobalProvider>
-                <GlobalProvider2>
-                  <Routes>
-                    <Route path='/teachers' element={
-                      <RequireAuth>
-                        <Teachers />
-                      </RequireAuth>
-                    }/>
-                  </Routes>
-                </GlobalProvider2>
+            
+            
               </Flex>
             </Content>
           </Layout>
@@ -70,6 +63,7 @@ const App = () => {
                    
       </AuthProvider>
     </BrowserRouter>
+    </Provider>
   );
 }
 

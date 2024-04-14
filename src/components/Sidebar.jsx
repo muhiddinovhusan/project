@@ -5,7 +5,6 @@ import '../scss/Sidebar.scss'
 
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from './AuthProvider'
-import { ModalContext } from '../pages/Students'
 
 const Sidebar = () => {
   const navigate = useNavigate();
